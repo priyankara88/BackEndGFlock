@@ -1,8 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
-const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import cors from "cors";
+import userRoutes from "./routers/user.js";
+import adminRoutes from "./routers/admin.js";
+
 const app = express();
 const port = process.env.PORT || 3000;
 dotenv.config();
@@ -12,8 +15,9 @@ app.use(cors());
 
 app.use(morgan("dev"));
 
-const userRoute = require("./routers/user");
-app.use("/api/users", userRoute);
+// import { userRoute } from "./routers/user.js";
+app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Define a basic route
 app.get("/api/users", (req, res) => {
